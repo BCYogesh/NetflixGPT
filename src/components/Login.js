@@ -1,11 +1,75 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidData } from "../utils/validate";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
-    const [signInForm, setSignInForm] = useState(true);
+    // state variable
+    const [signUpForm, setSignUpForm] = useState(true);
+    const [errorMessage, setErrorMessge] = useState(null);
 
+    // Ref variable
+    const fullName = useRef(null);
+    const email = useRef(null);
+    const password = useRef(null);
+
+    // Toggle page sign in/sing up
     const toggleSignInForm = () => {
-        setSignInForm(!signInForm);
+        setSignUpForm(!signUpForm);
+    };
+
+    const handleButtonClick = () => {
+        // validate the form data
+        const flagFullName = signUpForm ? fullName.current.value : "";
+        const msg = checkValidData(
+            flagFullName,
+            email.current.value,
+            password.current.value,
+            signUpForm
+        );
+        setErrorMessge(msg);
+
+        if (msg) return;
+
+        if (signUpForm) {
+            // Sign up logic
+            createUserWithEmailAndPassword(
+                auth,
+                email.current.value,
+                password.current.value
+            )
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(user);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessge(errorCode + "-", errorMessage);
+                    // ..
+                });
+        } else {
+            signInWithEmailAndPassword(
+                auth,
+                email.current.value,
+                password.current.value
+            )
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    console.log(user);
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessge(errorCode + "-", errorMessage);
+                });
+        }
     };
 
     return (
@@ -18,38 +82,46 @@ const Login = () => {
                 />
             </div>
             <div className="flex items-center justify-center h-screen">
-                <form className="relative text-white bg-black w-4/12 p-8 m-2 bg-opacity-80 rounded-lg">
+                <form
+                    onSubmit={(e) => e.preventDefault()}
+                    className="relative text-white bg-black w-4/12 p-8 m-2 bg-opacity-80 rounded-lg"
+                >
                     <h3
                         htmlFor="signIn"
                         className="text-white font-bold text-3xl mb-2 text-left py-2 my-4"
                     >
-                        {signInForm ? "Sign Up" : "Sign In"}
+                        {signUpForm ? "Sign Up" : "Sign In"}
                     </h3>
-                    {signInForm && (
+                    {signUpForm && (
                         <input
+                            ref={fullName}
                             type="text"
                             placeholder="Full Name"
                             className="p-4 my-4 w-full border border-black bg-gray-700"
                         />
                     )}
                     <input
+                        ref={email}
                         type="text"
                         placeholder="Email Address"
                         className="p-4 my-4 w-full border border-black bg-gray-700"
                     />
                     <input
+                        ref={password}
                         type="password"
                         placeholder="Password"
-                        className="p-4 my-4 w-full border border-black bg-gray-700"
+                        className="p-4 my-2 w-full border border-black bg-gray-700"
                     />
+                    <p className="text-red-600 font-bold">{errorMessage}</p>
                     <button
-                        type="button"
+                        type="submit"
                         className="p-3 bg-red-600 my-6 w-full text-white font-bold"
+                        onClick={handleButtonClick}
                     >
-                        {signInForm ? "Sign Up" : "Sign In"}
+                        {signUpForm ? "Sign Up" : "Sign In"}
                     </button>
                     <p className="cursor-pointer" onClick={toggleSignInForm}>
-                        {signInForm
+                        {signUpForm
                             ? "Already registered. Sign In Now!."
                             : "New to Netflix? Sign Up Now."}
                     </p>
