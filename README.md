@@ -11,7 +11,11 @@
 - Firebase setup
 - Deploying our app in production
 - Create sign up in user account
-
+- Implement signin user api
+- Created Redux store
+- Implemented sign out future
+- Update profile
+- Fetch from TMDB Movies api
 
 # Features
 
@@ -29,9 +33,9 @@
   - Search bar
   - Movie suggestions
 
-# Steps for deployment 
+# Steps for deployment
 
 - Install firebase CLI - `npm install -g firebase-tools`
 - Firebase Login - `firebase login`
 - Initilize Firebase - `firebase init`, then select Hosting
-- Deploy command - `firebase deploy`  
+- Deploy command - `firebase deploy`
