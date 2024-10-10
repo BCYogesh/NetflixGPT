@@ -7,15 +7,14 @@ import {
     updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../redux/userSlice";
+import { addUser } from "../redux/slice/userSlice";
+import { BANNER, LOGO, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
     // state variable
     const [signUpForm, setSignUpForm] = useState(true);
     const [errorMessage, setErrorMessge] = useState(null);
-    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -53,7 +52,7 @@ const Login = () => {
                     const user = userCredential.user;
                     updateProfile(user, {
                         displayName: fullName.current.value,
-                        photoURL: "https://avatars.githubusercontent.com/u/121486386?v=4",
+                        photoURL: USER_AVATAR,
                     })
                         .then(() => {
                             const { uid, email, displayName, photoURL } = user;
@@ -65,7 +64,6 @@ const Login = () => {
                                     photoURL: photoURL,
                                 })
                             );
-                            navigate("/browse");
                         })
                         .catch((error) => {
                             setErrorMessge(error.message);
@@ -86,10 +84,8 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed in
                     const user = userCredential.user;
-                    navigate("/browse");
                 })
                 .catch((error) => {
-
                     setErrorMessge("User not registered");
                 });
         }
@@ -100,7 +96,7 @@ const Login = () => {
             <Header />
             <div className="absolute">
                 <img
-                    src="https://assets.nflxext.com/ffe/siteui/vlv3/bfc0fc46-24f6-4d70-85b3-7799315c01dd/web/IN-en-20240923-TRIFECTA-perspective_74e21c19-980e-45ef-bd6c-78c1a6ce9381_large.jpg"
+                    src={BANNER}
                     alt="banner"
                 />
             </div>

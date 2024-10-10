@@ -1,11 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebaseConfig";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { addUser, removeUser } from "../redux/slice/userSlice";
+import { LOGO, USER_AVATAR } from "../utils/constants";
 
 const Header = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSignOut = () => {
         signOut(auth)
@@ -17,13 +20,38 @@ const Header = () => {
             });
     };
 
+    useEffect(() => {
+        // Whenever auth will be change this will be call.
+        const unSubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // SignIn
+                const { uid, email, displayName, photoURL } = user;
+                dispatch(
+                    addUser({
+                        uid: uid,
+                        email: email,
+                        displayName: displayName,
+                        photoURL: photoURL,
+                    })
+                );
+                navigate("/browse");
+            } else {
+                // Signed out
+                dispatch(removeUser());
+                navigate("/");
+            }
+        });
+
+        return () => unSubscribe();
+    }, []);
+
     const user = useSelector((store) => store.user);
 
     return (
         <div className="flex justify-between absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10">
             <img
                 className="w-40"
-                src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+                src={LOGO}
                 alt="logo"
             ></img>
             {user && (
@@ -31,10 +59,10 @@ const Header = () => {
                     <img className="w-12 h-12 rounded-full" src={user.photoURL} alt="user-profile" />
                     <button
                         type="button"
-                        className="font-bold mx-2"
+                        className="font-bold mx-2 text-white"
                         onClick={handleSignOut}
                     >
-                        sign out
+                        Sign out
                     </button>
                 </div>
             )}
