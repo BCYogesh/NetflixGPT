@@ -9,7 +9,7 @@ import {
 import { auth } from "../firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/slice/userSlice";
-import { BANNER, LOGO, USER_AVATAR } from "../utils/constants";
+import { BANNER, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
     // state variable

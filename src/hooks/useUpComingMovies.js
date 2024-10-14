@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { API_OPTIONS } from "../utils/constants";
 
 
-const useUpComing = () => {
+const useUpComingMovies = () => {
     // Fetching from TMDB Movies api and update store
 
     const dispatch = useDispatch();
@@ -20,4 +20,4 @@ const useUpComing = () => {
     });
 };
 
-export default useUpComing;
+export default useUpComingMovies;

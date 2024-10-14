@@ -36,6 +36,9 @@
 - TMDB Image CDN URL
 - Made the browse page amazing with tailwind CSS
 - To create custom hooks for data fetching from TMDB API && Update the store
+- GPT Search filter
+- GPT Search bar
+- (FEATURE) Multi-Language Feature in our app
 
 # Features
 
