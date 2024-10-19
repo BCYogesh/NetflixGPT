@@ -28,6 +28,7 @@ const Login = () => {
         setSignUpForm(!signUpForm);
     };
 
+
     const handleButtonClick = () => {
         // validate the form data
         const flagFullName = signUpForm ? fullName.current.value : "";

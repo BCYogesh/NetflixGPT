@@ -11,7 +11,7 @@ const Main = () => {
 
     if (!movies) return;
 
-    const mainMovie = movies[9];
+    const mainMovie = movies[10];
 
     const { original_title, overview, id } = mainMovie;
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { addUser, removeUser } from "../redux/slice/userSlice";
-import { GptSearchView } from "../redux/slice/gptSlice";
+import { gptSearchView } from "../redux/slice/gptSlice";
 import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
 import { changeLang } from "../redux/slice/configSlice";
 
@@ -51,7 +51,7 @@ const Header = () => {
     }, []);
 
     const toggleGptPage = () => {
-        dispatch(GptSearchView());
+        dispatch(gptSearchView());
     };
 
     const handleLangChange = (e) => {

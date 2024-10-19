@@ -23,3 +23,9 @@ export const SUPPORTED_LANGUAGES = [
     { identifier: "ta", name: "Tamil" },
     { identifier: "hin", name: "Hindi" },
 ];
+
+export const GEMINI_KEY = "AIzaSyAg6tpdICf6-vGTeMt5pWluznwfSyEcQIE";
+
+
+
+
