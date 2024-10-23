@@ -28,7 +28,6 @@ const Login = () => {
         setSignUpForm(!signUpForm);
     };
 
-
     const handleButtonClick = () => {
         // validate the form data
         const flagFullName = signUpForm ? fullName.current.value : "";
@@ -96,15 +95,12 @@ const Login = () => {
         <div>
             <Header />
             <div className="absolute">
-                <img
-                    src={BANNER}
-                    alt="banner"
-                />
+                <img src={BANNER} alt="banner" className="h-screen w-screen object-cover" />
             </div>
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center h-screen px-4 pt-8 md:pt-0">
                 <form
                     onSubmit={(e) => e.preventDefault()}
-                    className="relative text-white bg-black w-4/12 p-8 m-2 bg-opacity-80 rounded-lg"
+                    className="relative text-white bg-black md:w-4/12 p-8 m-2 bg-opacity-80 rounded-lg"
                 >
                     <h3
                         htmlFor="signIn"

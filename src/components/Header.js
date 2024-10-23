@@ -59,10 +59,10 @@ const Header = () => {
     };
 
     return (
-        <div className="flex justify-between absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10">
-            <img className="w-40" src={LOGO} alt="logo"></img>
+        <div className="flex justify-between absolute w-screen px-8 py-2 bg-gradient-to-b from-black flex-col md:flex-row z-10">
+            <img className="w-40 mx-auto md:mx-0" src={LOGO} alt="logo"></img>
             {user && (
-                <div className="flex content-center p-2">
+                <div className="flex content-center p-2 justify-between">
                     {gptPage && (
                         <select
                             className="mr-2 p-2 bg-gray-900 text-white"
@@ -78,13 +78,13 @@ const Header = () => {
 
                     <button
                         type="button"
-                        className="bg-purple-800 px-2 mr-4 text-white font-bold rounded-lg hover:bg-purple-600"
+                        className="bg-purple-800 px-2 py-2 md:py-0 md:mr-4 text-white font-bold rounded-lg hover:bg-purple-600"
                         onClick={toggleGptPage}
                     >
                         {gptPage ? "Home" : "GPT Search"}
                     </button>
                     <img
-                        className="w-12 h-12 rounded-full"
+                        className="w-12 h-12 rounded-full hidden md:inline-block "
                         src={user.photoURL}
                         alt="user-profile"
                     />

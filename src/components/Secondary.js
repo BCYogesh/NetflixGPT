@@ -9,7 +9,7 @@ const Secondary = () => {
 
     return (
         <div className="bg-black w-screen">
-            <div className="-mt-72 relative z-20 px-8 no-scrollbar">
+            <div className="mt-0 md:-mt-72 relative z-20 px-4 md:px-8 no-scrollbar">
                 <MovieList title={"Now playing"} movies={movies?.nowPlayingMovies} />
                 <MovieList title={"Popular"} movies={movies?.popularMovies} />
                 <MovieList title={"Top Rated"} movies={movies?.topRatedMovies} />
